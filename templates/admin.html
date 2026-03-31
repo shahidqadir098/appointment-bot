@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin</title>
+
+<style>
+body { font-family: Arial; padding: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+th { background: #333; color: white; }
+a { margin: 0 5px; text-decoration: none; }
+</style>
+
+</head>
+<body>
+
+<h2>Appointments</h2>
+<a href="/logout">Logout</a>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+{% for a in appointments %}
+<tr>
+<td>{{ a[0] }}</td>
+<td>{{ a[1] }}</td>
+<td>{{ a[2] }}</td>
+<td>{{ a[3] }}</td>
+<td>{{ a[4] }}</td>
+<td>{{ a[5] }}</td>
+<td>
+<a href="/complete/{{ a[0] }}">✔</a>
+<a href="/edit/{{ a[0] }}">✏</a>
+<a href="/delete/{{ a[0] }}">❌</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
