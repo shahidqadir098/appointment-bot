@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin</title>
+<title>Admin Panel</title>
 
 <style>
 body { font-family: Arial; padding: 20px; }
@@ -16,7 +16,17 @@ a { margin: 0 5px; text-decoration: none; }
 <body>
 
 <h2>Appointments</h2>
+
 <a href="/logout">Logout</a>
+
+<br><br>
+
+<form method="GET">
+    <input name="q" placeholder="Search name or phone">
+    <button type="submit">Search</button>
+</form>
+
+<br>
 
 <table>
 <tr>
@@ -40,11 +50,10 @@ a { margin: 0 5px; text-decoration: none; }
 <td>
 <a href="/complete/{{ a[0] }}">✔</a>
 <a href="/edit/{{ a[0] }}">✏</a>
-<a href="/delete/{{ a[0] }}">❌</a>
+<a href="/delete/{{ a[0] }}" onclick="return confirm('Delete this appointment?')">❌</a>
 </td>
 </tr>
 {% endfor %}
-
 </table>
 
 </body>
