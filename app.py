@@ -132,6 +132,8 @@ def login():
 
 
 # ---------------- ADMIN ----------------
+from datetime import datetime, timedelta
+
 @app.route("/admin")
 def admin():
     if not session.get("admin"):
@@ -140,16 +142,23 @@ def admin():
     db = get_db()
     cursor = db.cursor()
 
-    q = request.args.get("q")
-    status = request.args.get("status")
+    filter_type = request.args.get("filter")  # today / yesterday
 
-    if status == "pending":
-        cursor.execute("SELECT * FROM appointments WHERE status='Pending' ORDER BY id DESC")
-    elif q:
+    today = datetime.now().strftime("%d-%m-%Y")
+    yesterday = (datetime.now() - timedelta(days=1)).strftime("%d-%m-%Y")
+
+    if filter_type == "today":
         cursor.execute(
-            "SELECT * FROM appointments WHERE name ILIKE %s OR phone ILIKE %s ORDER BY id DESC",
-            (f"%{q}%", f"%{q}%")
+            "SELECT * FROM appointments WHERE date=%s ORDER BY id DESC",
+            (today,)
         )
+
+    elif filter_type == "yesterday":
+        cursor.execute(
+            "SELECT * FROM appointments WHERE date=%s ORDER BY id DESC",
+            (yesterday,)
+        )
+
     else:
         cursor.execute("SELECT * FROM appointments ORDER BY id DESC")
 

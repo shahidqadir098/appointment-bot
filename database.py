@@ -2,7 +2,7 @@ import psycopg2
 import os
 import json
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql://appointment_db_e6n4_user:tK9w8x24fPACN4jDtio5XAXWLFbZyg7c@dpg-d76kbtpr0fns73cctlng-a.oregon-postgres.render.com/appointment_db_e6n4"
 
 def get_db():
     return psycopg2.connect(DATABASE_URL)
